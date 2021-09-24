@@ -18,7 +18,7 @@ def load_image(filename) :
     return data
 
 
-def load_dataset(num_samples=200, output_shape=(3,3)):
+def load_dataset(num_samples=200):
     neg_images = []
     pos_images = []
 
@@ -28,13 +28,13 @@ def load_dataset(num_samples=200, output_shape=(3,3)):
     for file in os.listdir('dataset/Positive')[0:num_samples]:
         pos_images.append(load_image('dataset/Positive/' + file))
 
-    neg_images_rescaled = np.array([cv2.resize(np.sum(image/255, axis=2)/3, output_shape) for image in neg_images])
-    pos_images_rescaled = np.array([cv2.resize(np.sum(image/255, axis=2)/3, output_shape) for image in pos_images])
+    return neg_images, pos_images
 
-    neg_images_rescaled[np.abs(neg_images_rescaled)<.2] = 0
-    pos_images_rescaled[np.abs(pos_images_rescaled)<.2] = 0
+def preprocess_images(images, output_shape=(3,3)):
+    images_rescaled = np.array([cv2.resize(np.sum(image/255, axis=2)/3, output_shape) for image in images])
+    images_rescaled[np.abs(images_rescaled)<.2] = 0
+    return images_rescaled
 
-    return neg_images_rescaled, pos_images_rescaled
 
 def load_image_in_seq(seq, image):
     size = image.shape[0]
