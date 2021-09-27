@@ -6,7 +6,7 @@ It needs the following packages to be run
 - numpy
 - matplotlib
 - pulser
-- opencv
+- opencv-python
 - scikit-optimize
 
 A general presentation is to be found in the notebook. 
